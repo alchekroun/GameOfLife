@@ -1,31 +1,7 @@
 #include <iostream>
-#include <string>
-#include <thread>
-#include <chrono>
+#include <memory>
 
-#include "gui.hpp"
-#include "life.hpp"
-
-void render(int generation, std::vector<std::vector<std::shared_ptr<cell>>> const &grid)
-{
-    system("clear");
-    std::cout << "Generation: " << std::to_string(generation) << std::endl;
-    for (int row = 0; row < grid.size(); row++)
-    {
-        for (int col = 0; col < grid[0].size(); col++)
-        {
-            if (grid[row][col]->alive)
-            {
-                std::cout << 'X';
-            }
-            else
-            {
-                std::cout << '.';
-            }
-        }
-        std::cout << std::endl;
-    }
-}
+#include "src/game.hpp"
 
 int main()
 {
@@ -43,14 +19,23 @@ int main()
             {false, false, false, false, false, false, false, false, false, false},
         };
 
-        life *main_life = new life(25, 25);
-        render(0, main_life->get_grid());
-        for (int i = 0; i < 20; i++)
-        {
-            std::this_thread::sleep_for(std::chrono::milliseconds(200));
-            int generation = main_life->next_generation();
-            render(generation, main_life->get_grid());
-        }
+        int row_limit;
+        int col_limit;
+        int generation;
+        int latency;
+
+        std::cout << "Welcome to Conway\'s Game Of life." << std::endl;
+        std::cout << "What is the axis X limit ?" << std::endl;
+        std::cin >> col_limit;
+        std::cout << "What is the axis Y limit ?" << std::endl;
+        std::cin >> row_limit;
+        std::cout << "How many generation ?" << std::endl;
+        std::cin >> generation;
+        std::cout << "What latency you want between each generation ? (in ms)" << std::endl;
+        std::cin >> latency;
+
+        std::unique_ptr<gameoflife::game> g = std::make_unique<gameoflife::game>(row_limit, col_limit, latency);
+        g->start(generation);
     }
     return 0;
 }
