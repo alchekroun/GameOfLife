@@ -9,6 +9,6 @@ Three main classes:
 - `game`: Host two threads, one for `life` and one for `gui`
 
 ## Demo
-Pay attention to `Generation: XX` when it has an asterisk symbol it means that the game is still calculating future generations. One they are all processed, the asterisk disapears.
+Pay attention to `Generation: XX*` when it has an asterisk symbol it means that the game is still calculating future generations. One they are all processed, the asterisk disapears.
 
-![Demo](https://github.com/alchekroun/snek/raw/master/docs/demo.gif))
+![Demo](https://github.com/alchekroun/GameOfLife/raw/master/docs/demo.gif)
